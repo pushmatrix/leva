@@ -13,6 +13,7 @@ export function Select({
   disabled,
 }: Pick<SelectProps, 'value' | 'displayValue' | 'onUpdate' | 'id' | 'settings' | 'disabled'>) {
   const { keys, values } = settings
+  const { emitOnEditEnd } = useInputContext();
   const lastDisplayedValue = useRef<any>()
 
   // in case the value isn't present in values (possibly when changing options
@@ -26,7 +27,7 @@ export function Select({
       <NativeSelect
         id={id}
         value={displayValue}
-        onChange={(e) => onUpdate(values[Number(e.currentTarget.value)])}
+        onChange={(e) => {onUpdate(values[Number(e.currentTarget.value)]); emitOnEditEnd();}}
         disabled={disabled}>
         {keys.map((key, index) => (
           <option key={key} value={index}>

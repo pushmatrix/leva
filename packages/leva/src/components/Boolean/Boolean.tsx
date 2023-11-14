@@ -10,13 +10,14 @@ export function Boolean({
   id,
   disabled,
 }: Pick<BooleanProps, 'value' | 'onUpdate' | 'id' | 'disabled'>) {
+  const { emitOnEditEnd } = useInputContext();
   return (
     <StyledInputWrapper>
       <input
         id={id}
         type="checkbox"
         checked={value}
-        onChange={(e) => onUpdate(e.currentTarget.checked)}
+        onChange={(e) => {onUpdate(e.currentTarget.checked); emitOnEditEnd()}}
         disabled={disabled}
       />
       <label htmlFor={id}>
